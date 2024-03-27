@@ -9,14 +9,14 @@ import streamlit as st
 # set up file upload
 
 """
-# DATA_VIZ APP
+# DATAVIZ APP
 """
 
 st.sidebar.title("DATAVIZ")
 st.sidebar.divider()
 uploaded_data = st.sidebar.file_uploader(label='Upload dataset')
-x = st.text_input(label="X")
-y = st.text_input(label= "Y")
+x = st.text_input(label="X VARIABLE")
+y = st.text_input(label= "Y VARIABLE")
 
 
 
