@@ -5,33 +5,52 @@ import pandas as pd
 import numpy as np
 import plotly.express as px
 import streamlit as st
+import time
 
+options= ['bar-chart','line chart', 'scatter chart']
 # set up file upload
 
 """
-# DATAVIZ APP
+# VIZZ-APP
+### Learn a lot and quickly form your dataset with just one click. Making data visualisation fun again
 """
-
-st.sidebar.title("DATAVIZ")
-st.sidebar.divider()
-uploaded_data = st.sidebar.file_uploader(label='Upload dataset')
-x = st.text_input(label="X VARIABLE")
-y = st.text_input(label= "Y VARIABLE")
+st.sidebar.title("VIZZ-APP")
 
 
+uploaded_data = st.sidebar.file_uploader(label="xyz", label_visibility='hidden')
+try:
+    if st.sidebar.button(label='Upload', type= 'secondary'):
+        with st.spinner("uploading loading file.."):
+            time.sleep(3)
+        st.sidebar.success(body="Done!")
+except ValueError:
+    st.write("You Must upload a dataset")    
 
-def main(data, col):
-    
-    fig = px.histogram(data_frame= data, 
-                    x =  data[col[0]],y= data[col[1]] )
-    show = st.plotly_chart(fig, use_container_width=True)
-    
-    return show
 
+if st.button(label= 'Try it Out', type='primary'):
+    st.divider()
+    st.sidebar.divider()
+    st.sidebar.title("Now Choose your charts")
 
-if st.sidebar.button(label= 'Upload', type= 'primary'):
-    data = pd.read_csv(uploaded_data)
-    uploaded_cols = list(data.columns)
-    st.write(f'You have columns {list(data.columns)}')
-    main(data= data, col=[x,y])
-    
+df = pd.read_csv(uploaded_data)
+st.write(df.head(5))
+
+chart = st.sidebar.radio(label= "Charts",
+                         options= ['bar_chart','line chart','scatter chart'],
+                         index=None)
+
+if chart:
+    st.success(f"You chose {chart}")
+    st.divider()
+    col1, col2 = st.columns(2)
+    with col1:
+        x = st.text_input(label= "X")
+    with col2:
+        y = st.text_input(label= "Y")
+    if chart == 'bar_chart':
+        fig = px.histogram(data_frame=df, x = df[x], y = df[y],
+                           color= df[x],
+                           title= f"Bar Chart of {x} and {y}")
+        st.plotly_chart(fig)  
+else:
+    st.error(f'Choose a Chart')
