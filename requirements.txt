@@ -3,3 +3,5 @@ seaborn
 streamlit
 matplotlib
 plotly
+scipy
+statsmodels
