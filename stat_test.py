@@ -76,12 +76,8 @@ def display_test(df, columns, test):
         results = pd.DataFrame([[t_statistic],[pv]], columns= ['values'],
                                index = ['test statistic', 'p value'])
     with st.container(height=250):
-        table, comments = st.columns(2)
-        with table:
-            st.write(results)
-        with comments:
-            with st.container(height= 200):
-                st.subheader('Conclusion', divider=True)
-                st.write('create 2 containers, one for output and one for conclusion')
+        st.write(results)
+        st.subheader('Conclusion', divider=True)
+        st.write('create 2 containers, one for output and one for conclusion')
     
                     

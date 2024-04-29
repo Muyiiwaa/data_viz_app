@@ -74,8 +74,9 @@ def main():
             if st.button(label=f"Perform {test_type} analysis", type= 'primary'):
                 if select_columns:
                     display_test(df, columns=selected_columns, test=test_type)
-            
-            
+                    #st.text_input(label='What does this mean?')
+                    if st.button(label='Clear Result', key='clear_btn'):
+                        pass
         st.sidebar.divider()
         feedback()
         

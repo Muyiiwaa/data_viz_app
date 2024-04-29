@@ -17,9 +17,9 @@ def hero_section():
         get_test = container2.button(label= 'Check it out', type='secondary')
    
     if get_test:
-        st.success('You clicked Statistical test')
+        st.success('Upload dataset to get started')
     elif get_visual:
-        st.success('You chose visual')
+        st.success('Upload dataset to get started')
     st.divider()
 
 def feedback():
