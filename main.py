@@ -11,6 +11,7 @@ from stat_test import display_test
 # Function to load CSV file
 def load_data(file):
     df = pd.read_csv(file)
+    df.columns = df.columns.str.replace(' ', '_')
     return df
 
 # Function to select columns

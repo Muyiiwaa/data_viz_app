@@ -15,20 +15,39 @@ import time
 
 # Load environment variables
 load_dotenv()
-
 GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
-
 # Set up Google Gemini-Pro AI model
 gen_ai.configure(api_key=GOOGLE_API_KEY)
 model = gen_ai.GenerativeModel('gemini-pro')
 
-def conclude(columns, test):
-    prompt = f'''
-    You are an expert statistician and data analyst, i need you to tell me you
-    performed {test} test on the following columns {columns}. Say it like a professional
-    statistician would.
+def conclude(columns, test,result, alpha=0.05):
+    prompt2 =f'''
+    You are an expert statistician, i need you to write detailed conclusion on this analysis.
+    I need you to interprete the findings of {result} performed on {columns}. Your output must be very detailed
+    and sound professional.To help bring consistency in your tone, 
+    i want you to always follow this output style.
+    {test} Conclusion
+    1.Our Question of interest:
+
+    2.Hypothesis:
+
+    3. Statistical Test:
+
+    {test} was conducted to ...
+
+    4.Decision rule:
+    if pvalue is less than alpha, we reject the null hypothesis else we accept.
+
+    5.Results:
+
+    6.Interpretation:
+
+    7.Conclusion:
+    
+    Last piece of instruction for you, anything that is a python list you should
+    not include the square bracket. 
     '''
-    response = model.generate_content(prompt)
+    response = model.generate_content(prompt2)
 
     return response.text
 
@@ -109,4 +128,4 @@ def display_test(df, columns, test):
         for percent_complete in range(100):
              time.sleep(0.03)
              my_bar.progress(percent_complete + 1, text=progress_text)
-        st.write(conclude(columns=columns, test=test))
+        st.write(conclude(columns=columns, test=test, result = results))
