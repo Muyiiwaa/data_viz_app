@@ -7,7 +7,8 @@ def hero_section():
     page_icon=":brain:",  # Favicon emoji
     layout="centered",)  # Page layout option
     
-    st.title("🤖 SMART ANALYTICS BUDDY!")
+    st.title("🤖 WELCOME TO VIZAPP.")
+    st.markdown('### YOUR QUICK DATA ANALYTICS AND VISUALISATON BUDDY')
     st.divider()
     #st.button(label='Get Started', type= 'primary')
     column1, column2 = st.columns(2)
@@ -23,9 +24,9 @@ def hero_section():
         get_test = container2.button(label= 'Check it out', type='secondary')
    
     if get_test:
-        st.success('Upload dataset to get started')
+        st.success('Upload dataset to get started. Are you On Mobile? Open side panel')
     elif get_visual:
-        st.success('Upload dataset to get started')
+        st.success('Upload dataset to get started.Are you On Mobile? Open side panel')
     st.divider()
 
 def feedback():
