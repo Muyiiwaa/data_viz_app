@@ -5,6 +5,32 @@ from scipy import stats
 import statsmodels.api as sm
 from statsmodels.formula.api import ols
 from statsmodels.stats.anova import anova_lm
+import google.generativeai as gen_ai
+import os
+from dotenv import load_dotenv
+import time
+
+
+# creating the AI statistics function
+
+# Load environment variables
+load_dotenv()
+
+GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
+
+# Set up Google Gemini-Pro AI model
+gen_ai.configure(api_key=GOOGLE_API_KEY)
+model = gen_ai.GenerativeModel('gemini-pro')
+
+def conclude(columns, test):
+    prompt = f'''
+    You are an expert statistician and data analyst, i need you to tell me you
+    performed {test} test on the following columns {columns}. Say it like a professional
+    statistician would.
+    '''
+    response = model.generate_content(prompt)
+
+    return response.text
 
 
 def display_test(df, columns, test):
@@ -75,9 +101,12 @@ def display_test(df, columns, test):
         t_statistic, pv = stats.ttest_ind(data_group1, data_group2)
         results = pd.DataFrame([[t_statistic],[pv]], columns= ['values'],
                                index = ['test statistic', 'p value'])
-    with st.container(height=250):
+    with st.container(height=500):
         st.write(results)
         st.subheader('Conclusion', divider=True)
-        st.write('create 2 containers, one for output and one for conclusion')
-    
-                    
+        progress_text = "Analyzing the result. Please wait."
+        my_bar = st.progress(0, text=progress_text)
+        for percent_complete in range(100):
+             time.sleep(0.03)
+             my_bar.progress(percent_complete + 1, text=progress_text)
+        st.write(conclude(columns=columns, test=test))
