@@ -1,7 +1,13 @@
 import streamlit as st
 
 def hero_section():
-    st.title('SIMPLE INTERFACE FOR YOUR QUICK ANALYTICS NEEDS')
+    #st.title('SIMPLE INTERFACE FOR YOUR QUICK ANALYTICS NEEDS')
+    st.set_page_config(
+    page_title="SMART ANALYTICS BUDDY!",
+    page_icon=":brain:",  # Favicon emoji
+    layout="centered",)  # Page layout option
+    
+    st.title("🤖 SMART ANALYTICS BUDDY!")
     st.divider()
     #st.button(label='Get Started', type= 'primary')
     column1, column2 = st.columns(2)
